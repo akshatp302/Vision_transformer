@@ -9,6 +9,53 @@ from torch.utils.data import Dataset
 from torchvision.transforms import ToTensor
 
 
+
+# batch = 32
+# epoch = 10
+# learning_rate = 0.001
+# patch_size = 4
+# number_of_classes = 100
+# image_size = 32
+# num_channels = 3    
+embed_dim = 64
+# num_heads = 4
+# num_layers = 6
+# mlp_size = 128
+# dropout_rate = 0.1  
+
+
+
+
+
+
+
+class Trainer (nn.Module):
+    def __init__(self):
+        super().__init__()
+        
+        self.patch_size = 4
+        self.embed_dim = 256
+        
+        self.projection = nn.Conv2d(in_channels=3,
+                                    
+                                    out_channels=self.embed_dim,
+                                    
+                                    kernel_size=self.patch_size,
+                                    
+                                    stride=self.patch_size)
+        
+        total_patches = (32 // self.patch_size) ** 2
+        self.class_token = nn.Parameter(torch.randn(1, 1, self.embed_dim))
+        
+        
+
+    pass
+
+
+
+
+
+
 class Dataprepare():
     def __init__(self,batch_size):
         self.batch_size = batch_size
@@ -53,3 +100,16 @@ class Dataprepare():
 
         
 
+A = Dataprepare(batch_size=32)
+A.data_download()
+A.data_prepare()
+
+
+print(A.train_dataset)
+print(A.test_dataset)
+
+print(f"the length of the total batches are {len(A.train_prepare)} with batch size {A.batch_size}   ")
+print(f"the length of the total batches are {len(A.test_prepare)} with batch size {A.batch_size}   ")
+
+c = next(iter(A.train_prepare))
+print(c[0].shape)
